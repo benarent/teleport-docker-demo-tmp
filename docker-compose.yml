@@ -1,0 +1,56 @@
+version: "3"
+services:
+# My grafana service 
+  grafana:
+    build:
+      context: ./grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      teleport:
+        aliases:
+          - grafana.teleport
+
+  teleport-app:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-app
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node,app --app-name=grafana-demo-2 --app-uri=http://grafana.teleport:3000 --token={$TOKEN} --auth-server={$TELEPORT_URI}"
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - teleport-app.teleport
+
+  teleport-node-two:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-node-two
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels env=prod --token={$TOKEN} --auth-server={$TELEPORT_URI}"
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - teleport-node-two.teleport
+
+  teleport-node-three:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-node-three
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels env=prod --token={$TOKEN} --auth-server={$TELEPORT_URI}"
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - teleport-node-three.teleport
+  
+# Explicitly define the persistent volume for your data storage
+volumes:
+  grafana-data:
+    external: true
+
+networks:
+  teleport:
