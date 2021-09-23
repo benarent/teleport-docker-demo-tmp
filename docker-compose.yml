@@ -29,7 +29,7 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-node-two
-    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-1 --token=$TOKEN --auth-server=$TELEPORT_URL"
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-2 --token=$TOKEN --auth-server=$TELEPORT_URL"
     mem_limit: 300m
     networks:
       teleport:
@@ -40,7 +40,7 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-node-three
-    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-2 --token=$TOKEN --auth-server=$TELEPORT_URI"
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-3 --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
       teleport:
@@ -51,12 +51,23 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-node-four
-    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-3 --token=$TOKEN --auth-server=$TELEPORT_URI"
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-4 --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
       teleport:
         aliases:
           - teleport-node-four.teleport
+
+  teleport-node-five:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-node-five
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-5 --token=$TOKEN --auth-server=$TELEPORT_URI"
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - teleport-node-five.teleport
 
   
 # Explicitly define the persistent volume for your data storage
