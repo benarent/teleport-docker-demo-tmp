@@ -18,7 +18,7 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-app
-    command: -c "/usr/bin/dumb-init teleport start -d --insecure --roles=node,app --app-name=grafana-demo-2 --app-uri=http://grafana.teleport:3000 --token=$TOKEN --auth-server=$TELEPORT_APP_URI"
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=app --app-name=grafana-demo-2 --app-uri=http://grafana.teleport:3000 --token=$TOKEN --auth-server=$TELEPORT_APP_URI"
     mem_limit: 300m
     restart: always
     networks:
