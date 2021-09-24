@@ -70,6 +70,18 @@ services:
         aliases:
           - postgres.teleport
 
+  teleport-db:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-db
+    command: -c "/usr/bin/dumb-init teleport db start --token=$TOKEN --auth-server=$TELEPORT_APP_URI --name=teleport-pg-test --protocol=postres --uri=postgres.teleport:5432"
+    mem_limit: 300m
+    restart: always
+    networks:
+      teleport:
+        aliases:
+          - teleport-db.teleport
+
 
 
   
