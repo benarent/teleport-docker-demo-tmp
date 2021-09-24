@@ -60,6 +60,17 @@ services:
         aliases:
           - teleport-node-three.teleport
 
+  postgres:
+    image: postgres:latest
+    entrypoint: /bin/sh
+    container_name: postgres
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - postgres.teleport
+
+
 
   
 # Explicitly define the persistent volume for your data storage
