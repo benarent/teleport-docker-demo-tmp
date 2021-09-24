@@ -71,6 +71,18 @@ services:
         aliases:
           - teleport-node-five.teleport
 
+  teleport-node-two-app:
+    image: quay.io/gravitational/teleport:7
+    entrypoint: /bin/sh
+    container_name: teleport-node-two-app
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=app  --app-name=grafana-demo-2 --app-uri=http://grafana.teleport:3000 --token=$TOKEN --auth-server=$TELEPORT_URI"
+    mem_limit: 300m
+    networks:
+      teleport:
+        aliases:
+          - teleport-node-two-app.teleport
+
+
   
 # Explicitly define the persistent volume for your data storage
 volumes:
