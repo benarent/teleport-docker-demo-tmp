@@ -31,6 +31,10 @@ services:
     image: quay.io/gravitational/teleport-lab:7
     entrypoint: /bin/sh
     container_name: teleport-node-one-lab
+    ports:
+      - 3023:3023
+      - 3025:3025
+      - 3080:3080
     command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-1-lab --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
@@ -42,6 +46,10 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-node-two
+    ports:
+      - 3023:3023
+      - 3025:3025
+      - 3080:3080
     command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-2 --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
@@ -53,6 +61,10 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-node-three
+    ports:
+      - 3023:3023
+      - 3025:3025
+      - 3080:3080
     command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-3 --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
@@ -64,6 +76,10 @@ services:
     image: postgres:latest
     entrypoint: /bin/sh
     container_name: postgres
+    ports:
+      - 3023:3023
+      - 3025:3025
+      - 3080:3080
     mem_limit: 300m
     networks:
       teleport:
@@ -74,6 +90,10 @@ services:
     image: quay.io/gravitational/teleport:7
     entrypoint: /bin/sh
     container_name: teleport-db
+    ports:
+      - 3023:3023
+      - 3025:3025
+      - 3080:3080
     command: -c "/usr/bin/dumb-init teleport db start --token=$TOKEN --auth-server=$TELEPORT_APP_URI --name=teleport-pg-test --protocol=postgres --uri=postgres.teleport:5432"
     mem_limit: 300m
     restart: always
