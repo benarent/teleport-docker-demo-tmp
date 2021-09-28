@@ -28,15 +28,15 @@ services:
 
 
   teleport-node-one:
-    image: quay.io/gravitational/teleport:7
+    image: quay.io/gravitational/teleport-lab:7
     entrypoint: /bin/sh
-    container_name: teleport-node-one
-    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-1 --token=$TOKEN --auth-server=$TELEPORT_URI"
+    container_name: teleport-node-one-lab
+    command: -c "/usr/bin/dumb-init teleport start -d --roles=node --labels Enviroment=qa-app-1-lab --token=$TOKEN --auth-server=$TELEPORT_URI"
     mem_limit: 300m
     networks:
       teleport:
         aliases:
-          - teleport-node-one.teleport
+          - teleport-node-one-lab.teleport
 
   teleport-node-two:
     image: quay.io/gravitational/teleport:7
